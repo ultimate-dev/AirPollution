@@ -126,8 +126,7 @@ export const Marker = ({
             " bg-" +
             color
           }
-        ></div>
-        <div className="bg-red bg-yellow bg-orange bg-burgundy bg-green bg-purple text-red text-yellow text-orange text-burgundy text-green text-purple" />
+        />
       </div>
     </div>
   );
@@ -170,7 +169,7 @@ const RenderPopup = ({
 }: RenderPopupProps) => {
   let { color, title } = ppmToData(ppm);
   return (
-    <div className="w-96 bg-white rounded-lg p-5 shadow-sm">
+    <div className="w-96 bg-white rounded-lg p-5 shadow">
       <div className="flex items-start justify-start">
         <div className="relative p-1">
           <div
@@ -293,7 +292,7 @@ const RenderPopup = ({
           </div>
         </div>
       </div>
-      <div className="my-3 w-full"></div>
+     
     </div>
   );
 };

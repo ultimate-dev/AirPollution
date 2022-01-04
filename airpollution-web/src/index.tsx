@@ -7,7 +7,6 @@ import "./assets/css/tailwind.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "react-calendar-heatmap/dist/styles.css";
 import "./assets/css/styles.css";
-
 // App
 const App = React.lazy(() => import("./App"));
 

@@ -5,6 +5,7 @@ import * as configs from "./configs";
 // Constants
 import maps from "./constants/maps";
 // Components
+import Definitions from "./components/Definitions";
 import Navbar from "./components/Navbar";
 import Map, { Marker } from "./components/Map";
 import Footer from "./components/Footer";
@@ -23,6 +24,7 @@ function App() {
 
   return (
     <div className="w-screen h-screen text-gray-800">
+      <Definitions />
       <Map
         configs={{
           token: configs.MAP_TOKEN,
