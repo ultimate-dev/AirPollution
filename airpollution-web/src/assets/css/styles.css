@@ -1,0 +1,13 @@
+@import "../fonts/gilroy/stylesheet.css";
+* {
+  font-family: "Gilroy", sans-serif !important;
+}
+
+.mapboxgl-popup-content {
+  padding: 0 !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
+.mapboxgl-popup-close-button {
+  display: none;
+}

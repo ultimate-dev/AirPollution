@@ -1,0 +1,5 @@
+###
+GET http://localhost:2323/api/prisma
+
+###
+GET http://localhost:2323/api/prisma
