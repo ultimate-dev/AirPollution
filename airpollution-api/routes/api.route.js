@@ -94,6 +94,16 @@ router.post("/", async (req, res, next) => {
       altitude = 0,
     } = req.body;
 
+    await prisma.station.update({
+      where: {
+        id,
+      },
+      data: {
+        lng,
+        lat,
+      },
+    });
+
     const data = await prisma.data.create({
       data: {
         station_id: id,
