@@ -32,16 +32,6 @@ app.get("/", async (req, res, next) => {
   res.send({ message: "Hello World" });
 });
 
-app.post("/dht/set", async (req, res, next) => {
-  res.json(1000);
-});
-app.post("/mq/set", async (req, res, next) => {
-  res.json(1000);
-});
-app.post("/bmp/set", async (req, res, next) => {
-  res.json(1000);
-});
-
 /**
  * Routes
  */
@@ -65,12 +55,6 @@ app.use((err, req, res, next) => {
   });
 });
 
-/**
- * Port Configuration
- */
-const PORT = process.env.PORT || 3000;
 
-/**
- * Listen Port
- */
-app.listen(PORT, () => console.log(`Server Started: http://localhost:${PORT}`));
+
+module.exports = app;

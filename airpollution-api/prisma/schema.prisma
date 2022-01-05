@@ -10,17 +10,30 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Product {
-  id         Int       @id @default(autoincrement())
-  name       String    @unique
-  price      Int       @default(0)
-  createdAt  DateTime  @default(now())
-  category   Category @relation(fields: [categoryId], references: [id])
-  categoryId Int
+model Data {
+  id          Int      @id @default(autoincrement())
+  station     Station  @relation(fields: [station_id], references: [id])
+  station_id  String
+  lng         Float
+  lat         Float
+  ppm         Float    @default(0)
+  co_ppm      Float    @default(0)
+  co2_ppm     Float    @default(0)
+  alkol_ppm   Float    @default(0)
+  aseton_ppm  Float    @default(0)
+  temperature Float    @default(0)
+  humidity    Float    @default(0)
+  heat_index  Float    @default(0)
+  pressure    Float    @default(0)
+  altitude    Float    @default(0)
+  date        DateTime @default(now())
+
+
 }
 
-model Category {
-  id       Int       @id @default(autoincrement())
-  name     String    @unique
-  products Product[]
+model Station {
+  id       String @unique
+  lng      Float
+  lat      Float
+  products Data[]
 }

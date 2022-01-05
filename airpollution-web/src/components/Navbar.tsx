@@ -5,7 +5,7 @@ export class NavbarProps {
 }
 export default ({ setStyle = () => {} }: NavbarProps) => {
   return (
-    <div className="fixed left-0 top-0 w-full z-50" data-aos="fade-down">
+    <div className="absolute left-0 top-0 w-full z-50" data-aos="fade-down">
       <div className="w-full flex justify-between p-2">
         <div></div>
         <div className="flex -mx-1">

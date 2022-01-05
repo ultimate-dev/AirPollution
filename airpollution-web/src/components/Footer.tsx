@@ -1,6 +1,6 @@
 export default () => {
   return (
-    <div className="fixed z-50 w-full left-0 bottom-0 p-2" data-aos="fade-up">
+    <div className="absolute z-40 w-full left-0 bottom-0 p-2" data-aos="fade-up">
       <div className="overflow-hidden rounded-lg h-auto flex text-center flex-wrap">
         <div className="md:w-1/6 w-1/3 bg-green flex flex-col justify-center items-center text-white p-2">
           <div className="lg:text-lg uppercase font-semibold">İYİ</div>

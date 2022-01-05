@@ -2,10 +2,10 @@
   "name": "airpollution-api",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +16,11 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
     "http-errors": "^2.0.0",
-    "morgan": "^1.10.0"
+    "moment": "^2.29.1",
+    "morgan": "^1.10.0",
+    "node-geocoder": "^3.28.0",
+    "node-open-geocoder": "^4.0.1",
+    "socket.io": "^4.4.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15",

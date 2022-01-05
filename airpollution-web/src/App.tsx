@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import AOS from "aos";
+import { io } from "socket.io-client";
 // Configs
 import * as configs from "./configs";
 // Constants
@@ -9,6 +10,16 @@ import Definitions from "./components/Definitions";
 import Navbar from "./components/Navbar";
 import Map, { Marker } from "./components/Map";
 import Footer from "./components/Footer";
+import Charts from "./components/Charts";
+// Helpers
+import { get } from "./helpers/http.helper";
+
+const socket = io(configs.API_URL, {
+  reconnection: true,
+  reconnectionDelay: 100,
+  reconnectionAttempts: 100000,
+  transports: ["websocket"],
+});
 
 function App() {
   //AOS
@@ -21,6 +32,21 @@ function App() {
     });
     AOS.refresh();
   }, []);
+
+  let [select, setSelect]: any = useState(null);
+  let [result, setResult]: any = useState([]);
+
+  useEffect(() => {
+    getDatas();
+    socket.on("update", () => {
+      getDatas();
+    });
+  }, []);
+  const getDatas = async () => {
+    await get("/api").then((res) => {
+      if (res.result) setResult(res.result);
+    });
+  };
 
   return (
     <div className="w-screen h-screen text-gray-800">
@@ -37,99 +63,25 @@ function App() {
         {(map) => (
           <Fragment>
             <Navbar setStyle={(style: string) => map.setStyle(style)} />
-            <Marker
-              active={true}
-              map={map}
-              lat={38.655520627117816}
-              lng={39.15497285554779}
-              data={{
-                id: "ELZ_1",
-                locationText: "Elazığ/Merkez",
-                ppm: 62,
-                co_ppm: 18,
-                co2_ppm: 20,
-                alkol_ppm: 112,
-                aseton_ppm: 24,
-                temperature: 16,
-                humidity: 25,
-                heat_index: 18,
-                pressure: 8080.1212,
-                altitude: 1010.1212,
-                longitude: 35.1748,
-                latitude: 38.6908,
-              }}
-            />
-
-            <Marker
-              map={map}
-              lat={40.95951012419908}
-              lng={35.66236926880983}
-              data={{
-                id: "SAM_1",
-                locationText: "Samsun/Havza",
-                ppm: 50,
-                co_ppm: 18,
-                co2_ppm: 20,
-                alkol_ppm: 112,
-                aseton_ppm: 24,
-                temperature: 16,
-                humidity: 25,
-                heat_index: 18,
-                pressure: 8080.1212,
-                altitude: 1010.1212,
-                longitude: 35.1748,
-                latitude: 38.6908,
-              }}
-            />
-
-            <Marker
-              map={map}
-              lat={39.10927895447871}
-              lng={27.185462726419868}
-              data={{
-                id: "IZM_1",
-                locationText: "İzmir/Bergama",
-                ppm: 120,
-                co_ppm: 18,
-                co2_ppm: 20,
-                alkol_ppm: 112,
-                aseton_ppm: 24,
-                temperature: 16,
-                humidity: 25,
-                heat_index: 18,
-                pressure: 8080.1212,
-                altitude: 1010.1212,
-                latitude: 38.6908,
-                longitude: 35.1748,
-              }}
-            />
-
-            <Marker
-              map={map}
-              lat={39.93173061212778}
-              lng={32.835540060005776}
-              data={{
-                id: "ANK_1",
-                locationText: "Ankara/Çankaya",
-                ppm: 255,
-                co_ppm: 18,
-                co2_ppm: 20,
-                alkol_ppm: 112,
-                aseton_ppm: 24,
-                temperature: 16,
-                humidity: 25,
-                heat_index: 18,
-                pressure: 8080.1212,
-                altitude: 1010.1212,
-                latitude: 38.6908,
-                longitude: 35.1748,
-              }}
-            />
+            {result.map((item: any, key: number) => (
+              <Marker
+                key={key}
+                onClick={() => setSelect("ELZ_1")}
+                active={true}
+                map={map}
+                lat={item.lat}
+                lng={item.lng}
+                data={{
+                  ...item,
+                }}
+              />
+            ))}
 
             <Footer />
           </Fragment>
         )}
       </Map>
+      {select && <Charts {...result.find((item: any) => item.id == select)} />}
     </div>
   );
 }
