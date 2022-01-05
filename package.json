@@ -6,6 +6,6 @@
   "author": "Şükrü Taha Bıyık <57368706+ultimate-dev@users.noreply.github.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node airpollution-api/server.js"
+    "start": "node server.js"
   }
 }
