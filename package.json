@@ -1,0 +1,8 @@
+{
+  "name": "AirPollution",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ultimate-dev/AirPollution.git",
+  "author": "Şükrü Taha Bıyık <57368706+ultimate-dev@users.noreply.github.com>",
+  "license": "MIT"
+}
