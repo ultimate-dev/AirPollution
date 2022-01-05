@@ -1,5 +1,5 @@
 import ReactDOMServer from "react-dom/server";
-import { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 // @ts-ignore
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 // Components
@@ -76,19 +76,36 @@ export const Marker = ({
 }: MarkerProps) => {
   let ref: any = useRef();
   let { color } = ppmToData(data?.ppm);
+  let [marker, setMarker]: any = useState(false);
+
+  useEffect(() => {
+    if (marker)
+      marker.getPopup().setHTML(
+        ReactDOMServer.renderToString(
+          <React.StrictMode>
+            <Popup {...data} active={active} />
+          </React.StrictMode>
+        )
+      );
+  }, [data, map]);
 
   useEffect(() => {
     if (map) {
       let popup = new mapboxgl.Popup()
         .setHTML(
-          ReactDOMServer.renderToString(<Popup {...data} active={active} />)
+          ReactDOMServer.renderToString(
+            <React.StrictMode>
+              <Popup {...data} active={active} />
+            </React.StrictMode>
+          )
         )
         .setLngLat([lng, lat]);
-
-      new mapboxgl.Marker(ref.current)
-        .setLngLat([lng, lat])
-        .setPopup(popup)
-        .addTo(map);
+      setMarker(
+        new mapboxgl.Marker(ref.current)
+          .setLngLat([lng, lat])
+          .setPopup(popup)
+          .addTo(map)
+      );
     }
   }, [map]);
 
