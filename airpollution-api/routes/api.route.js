@@ -103,10 +103,10 @@ router.post("/", async (req, res, next) => {
       lng &&
       lat &&
       ppm > 0 &&
-      // co_ppm > 0 &&
-      //  co2_ppm > 0 &&
-      //  alkol_ppm > 0 &&
-      //  aseton_ppm > 0 &&
+      co_ppm > 0 &&
+      co2_ppm > 0 &&
+      alkol_ppm > 0 &&
+      aseton_ppm > 0 &&
       temperature > 0 &&
       humidity > 0 &&
       heat_index > 0 &&
