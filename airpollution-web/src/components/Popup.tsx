@@ -56,7 +56,7 @@ export default (props: PopupProps) => {
               className="font-semibold text-xl text-white"
               style={{ lineHeight: 1 }}
             >
-              {ppm}
+              {Number(ppm).toFixed(0)}
             </span>
             <span className="-mb-2 -mt-1 text-white opacity-50 font-medium">
               ppm
@@ -80,25 +80,25 @@ export default (props: PopupProps) => {
             <span className="flex-1 border-r border-gray-100 px-0.5">
               <small>(CO)</small>
               <div className={"-mt-2 text-opacity-70 text-" + color}>
-                {co_ppm}ppm
+                {Number(co_ppm).toFixed(0)}ppm
               </div>
             </span>
             <span className="flex-1 border-r border-gray-100 px-0.5">
               <small>(CO2)</small>
               <div className={"-mt-2 text-opacity-70 text-" + color}>
-                {co2_ppm}ppm
+                {Number(co2_ppm).toFixed(0)}ppm
               </div>
             </span>
             <span className="flex-1 border-r border-gray-100 px-0.5">
               <small>(Alkol)</small>
               <div className={"-mt-2 text-opacity-70 text-" + color}>
-                {alkol_ppm}ppm
+                {Number(alkol_ppm).toFixed(0)}ppm
               </div>
             </span>
             <span className="flex-1 border-gray-100 px-0.5">
               <small>(Aseton)</small>
               <div className={"-mt-2 text-opacity-70 text-" + color}>
-                {aseton_ppm}ppm
+                {Number(aseton_ppm).toFixed(0)}ppm
               </div>
             </span>
           </div>
@@ -127,7 +127,7 @@ const Body = ({
           <div className="flex flex-col items-center justify-center">
             <div className="text-gray-500 font-medium">Sıcaklık</div>
             <div className="text-lg font-medium">
-              <span>{temperature}</span>
+              <span>{Number(temperature).toFixed(2)}</span>
               <span className="ml-0.5 text-gray-500">C°</span>
             </div>
           </div>
@@ -136,7 +136,7 @@ const Body = ({
           <div className="flex flex-col items-center justify-center">
             <div className="text-gray-500 font-medium">Nem</div>
             <div className="text-lg font-medium">
-              <span>{humidity}</span>
+              <span>{Number(humidity).toFixed(2)}</span>
               <span className="ml-0.5 text-gray-500">%</span>
             </div>
           </div>
@@ -145,7 +145,7 @@ const Body = ({
           <div className="flex flex-col items-center justify-center">
             <div className="text-gray-500 font-medium">Hissedilen</div>
             <div className="text-lg font-medium">
-              <span>{heat_index}</span>
+              <span>{Number(heat_index).toFixed(2)}</span>
               <span className="ml-0.5 text-gray-500">C°</span>
             </div>
           </div>

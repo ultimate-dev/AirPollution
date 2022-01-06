@@ -79,7 +79,8 @@ export const Marker = ({
   let [marker, setMarker]: any = useState(false);
 
   useEffect(() => {
-    if (marker)
+    if (marker) {
+      marker.setLngLat([lng, lat]);
       marker.getPopup().setHTML(
         ReactDOMServer.renderToString(
           <React.StrictMode>
@@ -87,6 +88,7 @@ export const Marker = ({
           </React.StrictMode>
         )
       );
+    }
   }, [data, map]);
 
   useEffect(() => {
@@ -125,7 +127,7 @@ export const Marker = ({
           }
         >
           <span className="text-white font-medium" style={{ lineHeight: 1 }}>
-            {data?.ppm}
+            {Number(data?.ppm).toFixed(0)}
           </span>
           <div className="absolute left-50 top-full -mt-0.5 w-6 overflow-hidden inline-block">
             <div

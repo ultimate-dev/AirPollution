@@ -20,12 +20,16 @@ router.get("/", async (req, res, next) => {
         };
         obj["id"] = station.id;
         let location = await new Promise((resolve, reject) => {
-          openGeocoder()
-            .reverse(data.lng, data.lat)
-            .end((err, res) => {
-              if (err) reject(err);
-              else resolve(res);
-            });
+          try {
+            openGeocoder()
+              .reverse(data.lng, data.lat)
+              .end((err, res) => {
+                if (err) reject(err);
+                else resolve(res);
+              });
+          } catch (err) {
+            reject(err);
+          }
         });
         obj["locationText"] = String(location.display_name).substring(
           String(location.display_name).indexOf(",") + 1,
@@ -47,11 +51,11 @@ router.get("/", async (req, res, next) => {
         await Promise.all(
           chart.map(async (item) => {
             ppm_chart.push({
-              date: moment(item.date).format("HH:mm"),
+              date: moment(item.date).format("HH:mm:ss"),
               ppm: item.ppm,
             });
             dht_chart.push({
-              date: moment(item.date).format("HH:mm"),
+              date: moment(item.date).format("HH:mm:ss"),
               temp: item.temperature,
               humi: item.humidity,
             });
@@ -93,43 +97,66 @@ router.post("/", async (req, res, next) => {
       pressure = 0,
       altitude = 0,
     } = req.body;
+    console.log(req.body);
+    if (
+      id &&
+      lng &&
+      lat &&
+      ppm > 0 &&
+      // co_ppm > 0 &&
+      //  co2_ppm > 0 &&
+      //  alkol_ppm > 0 &&
+      //  aseton_ppm > 0 &&
+      temperature > 0 &&
+      humidity > 0 &&
+      heat_index > 0 &&
+      pressure > 0 &&
+      altitude > 0
+    ) {
+      await prisma.station.update({
+        where: {
+          id,
+        },
+        data: {
+          lng,
+          lat,
+        },
+      });
 
-    await prisma.station.update({
-      where: {
-        id,
-      },
-      data: {
-        lng,
-        lat,
-      },
-    });
+      const data = await prisma.data.create({
+        data: {
+          station_id: id,
+          lng,
+          lat,
+          ppm,
+          co_ppm,
+          co2_ppm,
+          alkol_ppm,
+          aseton_ppm,
+          temperature,
+          humidity,
+          heat_index,
+          pressure,
+          altitude,
+        },
+      });
 
-    const data = await prisma.data.create({
-      data: {
-        station_id: id,
-        lng,
-        lat,
-        ppm,
-        co_ppm,
-        co2_ppm,
-        alkol_ppm,
-        aseton_ppm,
-        temperature,
-        humidity,
-        heat_index,
-        pressure,
-        altitude,
-      },
-    });
+      io.emit("update");
 
-    io.emit("update");
-
-    res.json({
-      error: 0,
-      data,
-    });
+      res.json({
+        error: 0,
+        data,
+      });
+    } else {
+      res.json({
+        error: 1,
+      });
+    }
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    res.json({
+      error: 1,
+    });
     next(error);
   }
 });
