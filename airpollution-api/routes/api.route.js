@@ -5,6 +5,8 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
+const test_location = { name: "Elazığ/Merkez", lat: 38.655838, lng: 39.155678 };
+
 router.get("/", async (req, res, next) => {
   try {
     let result = [];
@@ -24,20 +26,25 @@ router.get("/", async (req, res, next) => {
             openGeocoder()
               .reverse(data.lng, data.lat)
               .end((err, res) => {
-                if (err) reject(err);
-                else resolve(res);
+                resolve(res);
               });
           } catch (err) {
-            reject(err);
+            resolve("");
           }
         });
-        obj["locationText"] = String(location.display_name).substring(
-          String(location.display_name).indexOf(",") + 1,
-          String(location.display_name).indexOf(
-            ",",
-            String(location.display_name).indexOf(",") + 1
-          )
-        );
+        if (!location || data.lat == 1000 || data.lng == 1000) {
+          obj["locationText"] = test_location.name;
+          obj["lat"] = test_location.lat;
+          obj["lng"] = test_location.lng;
+        } else
+          obj["locationText"] = String(location.display_name).substring(
+            String(location.display_name).indexOf(",") + 1,
+            String(location.display_name).indexOf(
+              ",",
+              String(location.display_name).indexOf(",") + 1
+            )
+          );
+
         let count = await prisma.data.count();
         let chart = await prisma.data.findMany({
           orderBy: { date: "asc" },

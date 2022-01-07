@@ -73,12 +73,22 @@ void loop()
   lcd.setCursor(0, 0);
   lcd.println("Hello, world!");
   lcd.display();
-  // Fan
+  // Fan Control
   if (fan_temp > 35.00)
     digitalWrite(PIN_FAN, HIGH);
   else
     digitalWrite(PIN_FAN, LOW);
-  // Sends sensor and module data via Serial Communication
+   // Sends sensor and module data via Serial Communication
+  serialComminication();
+  // Wait until the delay
+  delay(DELAY);
+}
+
+/**
+ * Functions
+ */
+// Esp Serial Communication
+void serialComminication(){
   espSerial.print("\"ppm\":" + String(ppm, 2));
   espSerial.print(", \"co_ppm\":" + String(co_ppm, 2));
   espSerial.print(", \"co2_ppm\":" + String(co2_ppm, 2));
@@ -89,13 +99,7 @@ void loop()
   espSerial.print(", \"heat_index\":" + String(heat_index, 2));
   espSerial.print(", \"pressure\":" + String(pressure, 4));
   espSerial.println();
-  // Wait until the delay
-  delay(DELAY);
 }
-
-/**
- * Functions
- */
 // Ppm values calculation
 double calcPpm(float rzero, float resistance, double m, double b)
 {
