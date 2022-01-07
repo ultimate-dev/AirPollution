@@ -82,7 +82,6 @@ void loop()
 /**
  * Functions
  */
-
 // Encoding gps data
 void encodeGps()
 {
