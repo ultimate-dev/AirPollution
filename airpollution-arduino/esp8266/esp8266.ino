@@ -5,11 +5,13 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 #include <TinyGPS.h>
+
 /**
  * Pins
  */
 #define PIN_GPS_RX 4
 #define PIN_GPS_TX 5
+
 /**
  * Configrations
  */
@@ -17,15 +19,18 @@ const String ID = "ELZ_1";
 const String WIFI_SSID = "AirPollution_WIFI";
 const String WIFI_PASS = "taha55taha";
 const String SERVER_HOST = "http://192.168.43.185:2323";
+
 /**
  * Constants
  */
 const uint16_t DELAY = 500;
+
 /**
  * Initializing
  */
 TinyGPS gps;
 SoftwareSerial gpsSerial(PIN_GPS_RX, PIN_GPS_TX); // (RX, TX)
+
 /**
  * Variables
  */
@@ -82,6 +87,7 @@ void loop()
 /**
  * Functions
  */
+
 // Encoding gps data
 void encodeGps()
 {

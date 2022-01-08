@@ -51,7 +51,6 @@ export default ({
                 outerRadius={80}
                 fill="#8884d8"
                 label
-                
               />
               <Tooltip />
             </PieChart>
@@ -66,14 +65,13 @@ export default ({
               <XAxis dataKey="date" />
               <YAxis />
               <Tooltip />
-              <Legend verticalAlign="bottom" margin={{top:15}}/>
+              <Legend verticalAlign="bottom" margin={{ top: 15 }} />
               <Area
                 isAnimationActive={false}
                 type="monotone"
                 dataKey="ppm"
                 stroke="#008DD5"
                 activeDot={{ r: 8 }}
-                
               />
             </AreaChart>
           </ResponsiveContainer>

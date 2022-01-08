@@ -6,6 +6,7 @@
 #include <MQ135.h>
 #include <Adafruit_BMP085.h>
 #include <Adafruit_PCD8544.h>
+
 /**
  * Pins
  */
@@ -15,10 +16,12 @@
 #define PIN_MQ A1
 #define PIN_FAN 2
 #define PIN_PIEZO 3
+
 /**
  * Constants
  */
 const uint16_t DELAY = 500;
+
 /**
  * Initializing
  */
@@ -27,6 +30,7 @@ DHT dht(PIN_DHT, DHT11);                                   // (Pin, DHT_Type)
 MQ135 mq(PIN_MQ);                                          // (Pin)
 Adafruit_BMP085 bmp;                                       // (SCL, SDA)->(A4, A5)
 Adafruit_PCD8544 lcd = Adafruit_PCD8544(8, 9, 10, 12, 11); // (SCLK, DIN, D/C, CS, RST)
+
 /**
  * Varibles
  */
@@ -78,7 +82,7 @@ void loop()
     digitalWrite(PIN_FAN, HIGH);
   else
     digitalWrite(PIN_FAN, LOW);
-   // Sends sensor and module data via Serial Communication
+  // Sends sensor and module data via Serial Communication
   serialComminication();
   // Wait until the delay
   delay(DELAY);
@@ -87,8 +91,10 @@ void loop()
 /**
  * Functions
  */
+
 // Esp Serial Communication
-void serialComminication(){
+void serialComminication()
+{
   espSerial.print("\"ppm\":" + String(ppm, 2));
   espSerial.print(", \"co_ppm\":" + String(co_ppm, 2));
   espSerial.print(", \"co2_ppm\":" + String(co2_ppm, 2));
@@ -100,6 +106,7 @@ void serialComminication(){
   espSerial.print(", \"pressure\":" + String(pressure, 4));
   espSerial.println();
 }
+
 // Ppm values calculation
 double calcPpm(float rzero, float resistance, double m, double b)
 {

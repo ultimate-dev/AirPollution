@@ -49,14 +49,14 @@ export default ({ children, configs }: MapProps) => {
   return (
     <>
       <div ref={mapContainer} className="w-full h-full">
-        {children && children(map)}
+        {map ? children && children(map) : null}
       </div>
     </>
   );
 };
 
 /**
- * useMarker
+ * Marker
  */
 export class MarkerProps {
   map?: any;
@@ -76,7 +76,7 @@ export const Marker = ({
 }: MarkerProps) => {
   let ref: any = useRef();
   let { color } = ppmToData(data?.ppm);
-  let [marker, setMarker]: any = useState(false);
+  let [marker, setMarker]: any = useState(null);
 
   useEffect(() => {
     if (marker) {

@@ -14,8 +14,8 @@ model Data {
   id          Int      @id @default(autoincrement())
   station     Station  @relation(fields: [station_id], references: [id])
   station_id  String
-  lng         Float
   lat         Float
+  lng         Float
   ppm         Float    @default(0)
   co_ppm      Float    @default(0)
   co2_ppm     Float    @default(0)
@@ -32,8 +32,8 @@ model Data {
 }
 
 model Station {
-  id       String @unique
-  lng      Float
-  lat      Float
+  id       String  @unique
   products Data[]
+  status   Boolean @default(true)
+  active   Boolean @default(true)
 }

@@ -6,7 +6,6 @@ import * as configs from "./configs";
 // Constants
 import maps from "./constants/maps";
 // Components
-import Definitions from "./components/Definitions";
 import Navbar from "./components/Navbar";
 import Map, { Marker } from "./components/Map";
 import Footer from "./components/Footer";
@@ -44,13 +43,13 @@ function App() {
   }, []);
   const getDatas = async () => {
     await get("/api").then((res) => {
+      console.log(res);
       if (res.result) setResult(res.result);
     });
   };
 
   return (
     <div className="w-screen h-screen text-gray-800">
-      <Definitions />
       <Map
         configs={{
           token: configs.MAP_TOKEN,
@@ -63,19 +62,25 @@ function App() {
         {(map) => (
           <Fragment>
             <Navbar setStyle={(style: string) => map.setStyle(style)} />
-            {result.map((item: any, key: number) => (
-              <Marker
-                key={key}
-                onClick={() => setSelect("ELZ_1")}
-                active={true}
-                map={map}
-                lat={item.lat}
-                lng={item.lng}
-                data={{
-                  ...item,
-                }}
-              />
-            ))}
+
+            {
+              /**
+               * Custom Markers
+               */
+              result.map((item: any, key: number) => (
+                <Marker
+                  key={key}
+                  onClick={() => setSelect(item.id)}
+                  active={item.active}
+                  map={map}
+                  lat={item.lat}
+                  lng={item.lng}
+                  data={{
+                    ...item,
+                  }}
+                />
+              ))
+            }
 
             <Footer />
           </Fragment>

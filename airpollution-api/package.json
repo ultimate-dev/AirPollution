@@ -18,7 +18,6 @@
     "http-errors": "^2.0.0",
     "moment": "^2.29.1",
     "morgan": "^1.10.0",
-    "node-geocoder": "^3.28.0",
     "node-open-geocoder": "^4.0.1",
     "socket.io": "^4.4.0"
   },

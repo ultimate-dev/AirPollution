@@ -11,68 +11,81 @@ router.get("/", async (req, res, next) => {
   try {
     let result = [];
 
-    let stations = await prisma.station.findMany();
+    let stations = await prisma.station.findMany({ where: { status: true } });
 
     await Promise.all(
       stations.map(async (station) => {
-        let data = await prisma.data.findFirst({ orderBy: { date: "desc" } });
-
-        let obj = {
-          ...data,
-        };
-        obj["id"] = station.id;
-        let location = await new Promise((resolve, reject) => {
-          try {
-            openGeocoder()
-              .reverse(data.lng, data.lat)
-              .end((err, res) => {
-                resolve(res);
-              });
-          } catch (err) {
-            resolve("");
-          }
+        let data = await prisma.data.findFirst({
+          orderBy: { date: "desc" },
+          where: { station_id: station.id },
         });
-        if (!location || data.lat == 1000 || data.lng == 1000) {
-          obj["locationText"] = test_location.name;
-          obj["lat"] = test_location.lat;
-          obj["lng"] = test_location.lng;
-        } else
-          obj["locationText"] = String(location.display_name).substring(
-            String(location.display_name).indexOf(",") + 1,
-            String(location.display_name).indexOf(
-              ",",
-              String(location.display_name).indexOf(",") + 1
-            )
+
+        if (data) {
+          let obj = {
+            ...data,
+          };
+
+          obj["id"] = station.id;
+          obj["active"] = station.active;
+          
+          let location = await new Promise((resolve, reject) => {
+            try {
+              openGeocoder()
+                .reverse(data.lng, data.lat)
+                .end((err, res) => {
+                  resolve(res);
+                });
+            } catch (err) {
+              resolve("");
+            }
+          });
+          if (data.lat == 1000 || data.lng == 1000) {
+            obj["lat"] = test_location.lat;
+            obj["lng"] = test_location.lng;
+          }
+          if (!location) {
+            obj["locationText"] = test_location.name;
+          } else
+            obj["locationText"] = String(location.display_name).substring(
+              String(location.display_name).indexOf(",") + 1,
+              String(location.display_name).indexOf(
+                ",",
+                String(location.display_name).indexOf(",") + 1
+              )
+            );
+
+          let count = await prisma.data.count({
+            where: { station_id: station.id },
+          });
+          let chart = await prisma.data.findMany({
+            orderBy: { date: "asc" },
+            skip: count >= 25 ? count - 25 : 0,
+            take: 25,
+            where: { station_id: station.id },
+          });
+
+          let ppm_chart = [],
+            dht_chart = [];
+
+          await Promise.all(
+            chart.map(async (item) => {
+              ppm_chart.push({
+                date: moment(item.date).format("HH:mm:ss"),
+                ppm: item.ppm,
+              });
+              dht_chart.push({
+                date: moment(item.date).format("HH:mm:ss"),
+                temp: item.temperature,
+                humi: item.humidity,
+              });
+            })
           );
 
-        let count = await prisma.data.count();
-        let chart = await prisma.data.findMany({
-          orderBy: { date: "asc" },
-          skip: count >= 25 ? count - 25 : 0,
-          take: 25,
-        });
+          obj["ppm_chart"] = ppm_chart;
+          obj["dht_chart"] = dht_chart;
 
-        let ppm_chart = [],
-          dht_chart = [];
-
-        await Promise.all(
-          chart.map(async (item) => {
-            ppm_chart.push({
-              date: moment(item.date).format("HH:mm:ss"),
-              ppm: item.ppm,
-            });
-            dht_chart.push({
-              date: moment(item.date).format("HH:mm:ss"),
-              temp: item.temperature,
-              humi: item.humidity,
-            });
-          })
-        );
-
-        obj["ppm_chart"] = ppm_chart;
-        obj["dht_chart"] = dht_chart;
-
-        result.push(obj);
+          result.push(obj);
+        }
       })
     );
 
@@ -120,21 +133,11 @@ router.post("/", async (req, res, next) => {
       pressure > 0 &&
       altitude > 0
     ) {
-      await prisma.station.update({
-        where: {
-          id,
-        },
-        data: {
-          lng,
-          lat,
-        },
-      });
-
       const data = await prisma.data.create({
         data: {
           station_id: id,
-          lng,
-          lat,
+          lng: Number(lng).toFixed(8),
+          lat: Number(lat).toFixed(8),
           ppm,
           co_ppm,
           co2_ppm,
