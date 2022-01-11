@@ -158,42 +158,42 @@ export const ppmToData = (ppm: number) => {
     return {
       title: "Tehilikeli",
       color: "burgundy",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      desc: " Acil durum alarmı için bir tetikleme noktasıdır. Toplumun tüm kesimleri, büyük bir ihtimalle etkilenecektir.",
     };
   else if (ppm > 200)
     return {
       title: "Çok Sağlıksız",
       color: "purple",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      desc: "Sağlık alarmı için bir tetikleme noktasıdır. Toplumun tüm kesimleri, çok ciddi düzeyde etkilenebilir.",
     };
   else if (ppm > 150)
     return {
       title: "Sağlıksız",
       color: "red",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      desc: "Hassas gruplar ciddi sağlık sorunları yaşayabilir. Genel halkın bazı sağlık etkileri yaşaması muhtemeldir.",
     };
   else if (ppm > 100)
     return {
       title: "Hassas",
       color: "orange",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      desc: "Toplumun belli bir kesimi, özellikle belli kirleticilere karşı hassastır. Bu grubun, genel nüfusa göre daha düşük seviyelerde dahi etkilenmeleri muhtemeldir. Örneğin, solunum rahatsızlığı olan kişiler, ozon kirleticisine maruz kalmaları sonucu daha fazla risk taşırken; kalp rahatsızlığı olan kişiler havadaki partikül kirleticilerine maruz kalmaları sonucu daha fazla risk taşırlar. Genel olarak, toplumun büyük kesimi, bu aralıkta etkilenmez.",
     };
   else if (ppm > 50)
     return {
       title: "Orta",
       color: "yellow",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      desc: "Hava kalitesi kabul edilebilir, ancak bazı kirleticilerin, toplumun küçük bir kesiminde orta düzeyde sağlık etkisi olabilir. Örneğin, ozon kirleticisine  çok hassas olan kişilerde bazı solunuma bağlı hastalık belirtilerine rastlanabilir.",
     };
   else if (ppm >= 0)
     return {
       title: "İyi",
       color: "green",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      desc: "Hava kalitesinin tatmin edici, hava kirliliğinin çok az olduğu veya sağlık riskinin bulunmadığı anlamına gelir.",
     };
   else
     return {
       title: "",
       color: "white",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      desc: "404",
     };
 };
