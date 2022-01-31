@@ -16,9 +16,9 @@
  * Configrations
  */
 const String ID = "ELZ_1";
-const String WIFI_SSID = "AirPollution_WIFI";
-const String WIFI_PASS = "taha55taha";
-const String SERVER_HOST = "http://192.168.43.185:2323";
+const String WIFI_SSID = "DUMAN";
+const String WIFI_PASS = "d.u.m.a.n.55";
+const String SERVER_HOST = "http://192.168.1.105:2323";
 
 /**
  * Constants

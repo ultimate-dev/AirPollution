@@ -136,8 +136,8 @@ router.post("/", async (req, res, next) => {
       const data = await prisma.data.create({
         data: {
           station_id: id,
-          lng: Number(lng).toFixed(8),
-          lat: Number(lat).toFixed(8),
+          lng: parseFloat(lng),
+          lat: parseFloat(lat),
           ppm,
           co_ppm,
           co2_ppm,

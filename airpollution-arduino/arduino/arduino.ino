@@ -73,9 +73,9 @@ void loop()
   fan_temp = bmp.readTemperature();
   // 3310LCD
   lcd.clearDisplay();
-  lcd.setTextSize(1);
+  lcd.setTextSize(2);
   lcd.setCursor(0, 0);
-  lcd.println("Hello, world!");
+  lcd.println(ppm);
   lcd.display();
   // Fan Control
   if (fan_temp > 35.00)
